@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script type="text/javascript" src="index.js"></script>
+    <link rel="stylesheet" type="text/css" href="style.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins&display=swap" rel="stylesheet">
+  </head>
+  <body>
+    <div class="popup">
+        <div class="popup-head"> How to play 🤔</div>
+        <div class="popup-body"> Press this button on your keyboard to play</div>
+        <div class="popup-footer">Visit my <a href="https://portfolio-e9044.web.app/">Portfolio </a></div>
+        <button class="button1" id="close">Let's Go</button>
+
+
+    </div>
+   
+    <div class="keys">
+
+      <div data-key="65" class="acon">
+        <div class="a">A</div>
+      </div>
+      <div data-key="83" class="acon">
+        <div class="s">S</div>
+      </div>
+      <div data-key="68" class="acon">
+        <div class="d">D</div>
+      </div>
+      <div data-key="70" class="acon">
+        <div class="f">F</div>
+      </div>
+      <div data-key="71" class="acon">
+        <div class="g">G</div>
+      </div>
+      <div data-key="72" class="acon">
+        <div class="h">H</div>
+      </div>
+
+      <div data-key="74" class="acon">
+        <div class="j">J</div>
+      </div>
+
+      <div data-key="75" class="acon">
+        <div class="k">K</div>
+      </div>
+    </div>
+
+    <audio data-key="65" src="/sound/1.wav"></audio>
+    <audio data-key="83" src="/sound/2.wav"></audio>
+    <audio data-key="68" src="/sound/3.wav"></audio>
+    <audio data-key="70" src="/sound/4.wav"></audio>
+    <audio data-key="71" src="/sound/5.wav"></audio>
+    <audio data-key="72" src="/sound/6.wav"></audio>
+    <audio data-key="74" src="/sound/7.wav"></audio>
+    <audio data-key="75" src="/sound/k.wav"></audio>
+
+    <script>
+  
+
+      function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const acon = document.querySelector(`.acon[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        audio.currentTime = 0; // by this you can play multiple time button audio
+        audio.play();
+        acon.classList.add("playing");
+      }
+      
+      function removeTransition(e) {
+        if (e.propertyName !== "transform") return;
+        this.classList.remove("playing");
+      }
+
+      const keys = document.querySelectorAll(".acon");
+      keys.forEach((acon) =>
+        acon.addEventListener("transitionend", removeTransition)
+      );
+
+      window.addEventListener("keydown", playSound);
+
+      document.querySelector("#close").addEventListener("click", function(){
+        document.querySelector(".popup").style.display="none";
+      })
+    </script>
+  </body>
+</html>
